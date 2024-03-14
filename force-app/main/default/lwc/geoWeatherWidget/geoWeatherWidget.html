@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title={cardTitle}>
+        <hr>
+        <template for:each={weatherRes} for:item="item">
+            <div key={item.dt} class="container">
+                <span>DateTime: <b>{item.dt_txt}</b></span><br>
+                <span>temperature: <b>{item.main.temp} &deg;C</b></span><br>
+                <template for:each={item.weather} for:item="weather">
+                    <span key={weather.id}>Description: <b>{weather.description}</b></span>
+                    <img key={weather.id} src={weather.icon}>
+                </template>
+            </div>
+            <hr key={item.dt}>
+        </template>
+    </lightning-card>
+</template>
