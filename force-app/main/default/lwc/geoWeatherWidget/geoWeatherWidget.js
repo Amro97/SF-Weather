@@ -21,7 +21,7 @@ export default class GeoWeatherWidget extends LightningElement {
                 const res = JSON.parse(r);
                 const city = res.city.name?res.city.name:'unknown';
                 const country = res.city.country?res.city.country:'unknown';
-                this.cardTitle = 'forecast: '+city+', '+country+'.';
+                this.cardTitle = 'forecast: '+city+', '+country+'. (24h cycle)';
                 this.weatherRes = [...res.list];
                 this.weatherRes.forEach(forecast => {
                     forecast.weather.forEach(weather => {
@@ -29,9 +29,13 @@ export default class GeoWeatherWidget extends LightningElement {
                     })
                 });
             })
-            .catch(e => this.err = true);
+            .catch(e => {
+                this.err = true;
+                console.error(e);
+            });
         } else if (error) {
             this.err = true;
+            console.error(error);
         }
     }
 }
