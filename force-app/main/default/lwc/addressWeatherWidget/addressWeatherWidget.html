@@ -1,36 +1,28 @@
 <template>
-    <lightning-card>
-        <lightning-input name="Address__City__s" label="City" value={addressForm.Address__City__s}
-            onchange={handleInputChange}></lightning-input>
-        <lightning-input name="Address__Street__s" label="Street" value={addressForm.Address__Street__s}
-            onchange={handleInputChange}></lightning-input>
-        <lightning-input name="Address__PostalCode__s" label="Postal Codeyy" value={addressForm.Address__PostalCode__s}
-            onchange={handleInputChange}></lightning-input>
-        <lightning-combobox name="Address__StateCode__s" label="State" value={addressForm.Address__StateCode__s}
-            onchange={handleInputChange} options={stateOptions}>
-        </lightning-combobox>
-        <lightning-combobox name="Address__CountryCode__s" label="Country"
-            value={addressForm.Address__CountryCode__s} onchange={handleInputChange} options={countryOptions}>
-        </lightning-combobox>
-        <lightning-button label="Save" onclick={onSave}></lightning-button>
-    </lightning-card>
-    <template lwc:if={err}>
-        <p><b>{errorMsg}</b></p>
-    </template>
-    <template lwc:else>
-        <lightning-card title={cardTitle}>
-            <hr>
-            <template for:each={weatherRes} for:item="item">
-                <div key={item.dt} class="container">
-                    <span>DateTime: <b>{item.dt_txt}</b></span><br>
-                    <span>temperature: <b>{item.main.temp} &deg;C</b></span><br>
-                    <template for:each={item.weather} for:item="weather">
-                        <span key={weather.id}>Description: <b>{weather.description}</b></span>
-                        <img key={weather.id} src={weather.icon}>
-                    </template>
-                </div>
-                <hr key={item.dt}>
-            </template>
+    <div class="slds-grid slds-wrap">
+        <lightning-card class="slds-col slds-size_6-of-12">
+            <lightning-input name="Address__City__s" label="City" value={addressForm.Address__City__s}
+                onchange={handleInputChange}></lightning-input>
+            <lightning-input name="Address__Street__s" label="Street" value={addressForm.Address__Street__s}
+                onchange={handleInputChange}></lightning-input>
+            <lightning-input name="Address__PostalCode__s" label="Postal Codeyy"
+                value={addressForm.Address__PostalCode__s} onchange={handleInputChange}></lightning-input>
+            <lightning-combobox name="Address__StateCode__s" label="State" value={addressForm.Address__StateCode__s}
+                onchange={handleInputChange} options={stateOptions}>
+            </lightning-combobox>
+            <lightning-combobox name="Address__CountryCode__s" label="Country"
+                value={addressForm.Address__CountryCode__s} onchange={handleInputChange} options={countryOptions}>
+            </lightning-combobox>
+            <lightning-button label="Save" onclick={onSave}></lightning-button>
         </lightning-card>
-    </template>
+        <template lwc:if={err}>
+            <p><b>{errorMsg}</b></p>
+        </template>
+        <template lwc:else>
+            <lightning-card title={cardTitle} class="slds-col slds-size_6-of-12" style="max-height: 27em; overflow-y: scroll;">
+                <hr>
+                <c-weather-widget-holder weather-info={weatherRes}></c-weather-widget-holder>
+            </lightning-card>
+        </template>
+    </div>
 </template>
